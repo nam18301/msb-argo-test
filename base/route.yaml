@@ -1,0 +1,10 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: msb-argo-test
+spec:
+  to:
+    kind: Service
+    name: msb-argo-test
+  port:
+    targetPort: 8080

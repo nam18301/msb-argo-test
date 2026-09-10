@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: msb-argo-test
+  labels:
+    app: msb-argo-test
+spec:
+  selector:
+    app: msb-argo-test
+  ports:
+    - port: 8080
+      targetPort: 8080
