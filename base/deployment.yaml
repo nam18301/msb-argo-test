@@ -32,10 +32,3 @@ spec:
             capabilities:
               drop:
                 - ALL
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: msb-argo-test-config
-data:
-  note: "test config"
