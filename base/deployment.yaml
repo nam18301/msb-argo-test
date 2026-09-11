@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
   name: msb-argo-test
   labels:
     app: msb-argo-test
@@ -32,3 +34,89 @@ spec:
             capabilities:
               drop:
                 - ALL
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: msb-argo-test-config
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+data:
+  APP_MODE: "test"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: msb-argo-presync-check
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: presync-check
+          image: nginxinc/nginx-unprivileged:1.25
+          command: ["sh", "-c", "echo 'PreSync check: validating environment...' && sleep 3 && echo 'PreSync OK'"]
+      restartPolicy: Never
+  backoffLimit: 1
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: msb-argo-postsync-notify
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: postsync-notify
+          image: nginxinc/nginx-unprivileged:1.25
+          command: ["sh", "-c", "echo 'PostSync notify: deployment complete, would send webhook here'"]
+      restartPolicy: Never
+  backoffLimit: 1
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: msb-argo-test-config
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+data:
+  APP_MODE: "test"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: msb-argo-presync-check
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: presync-check
+          image: nginxinc/nginx-unprivileged:1.25
+          command: ["sh", "-c", "echo 'PreSync check: validating environment...' && sleep 3 && echo 'PreSync OK'"]
+      restartPolicy: Never
+  backoffLimit: 1
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: msb-argo-postsync-notify
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+        - name: postsync-notify
+          image: nginxinc/nginx-unprivileged:1.25
+          command: ["sh", "-c", "echo 'PostSync notify: deployment complete, would send webhook here'"]
+      restartPolicy: Never
+  backoffLimit: 1
