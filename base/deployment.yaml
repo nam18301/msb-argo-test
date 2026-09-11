@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: msb-argo-test
-          image: registry.access.redhat.com/ubi8/nginx-120:1-77
+          image: nginxinc/nginx-unprivileged:1.25
           ports:
             - containerPort: 8080
           resources:
