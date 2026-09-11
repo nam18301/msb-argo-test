@@ -77,3 +77,10 @@ spec:
           command: ["sh", "-c", "echo 'PostSync notify: deployment complete, would send webhook here'"]
       restartPolicy: Never
   backoffLimit: 1
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: msb-argo-test-config
+data:
+  note: "test config"
