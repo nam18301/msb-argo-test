@@ -10,7 +10,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/replicas
-        value: 9
+        value: 3
   - target:
       kind: Deployment
       name: msb-backend
