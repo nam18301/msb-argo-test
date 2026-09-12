@@ -1,0 +1,10 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: msb-backend
+spec:
+  to:
+    kind: Service
+    name: msb-backend
+  port:
+    targetPort: 8080
