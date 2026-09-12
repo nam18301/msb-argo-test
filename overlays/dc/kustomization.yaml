@@ -24,7 +24,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/replicas
-        value: 4
+        value: 3
 labels:
   - includeSelectors: false
     pairs:
