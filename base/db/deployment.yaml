@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: msb-db
-          image: postgres:16
+          image: bitnami/postgresql:16
           ports:
             - containerPort: 5432
           envFrom:
@@ -27,7 +27,7 @@ spec:
                 name: msb-db-credentials
           volumeMounts:
             - name: db-data
-              mountPath: /var/lib/postgresql/data
+              mountPath: /bitnami/postgresql/data
               subPath: pgdata
           resources:
             requests:
