@@ -6,11 +6,18 @@ resources:
 patches:
   - target:
       kind: Deployment
-      name: msb-argo-test
+      name: msb-frontend
     patch: |-
       - op: replace
         path: /spec/replicas
         value: 5
+  - target:
+      kind: Deployment
+      name: msb-backend
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 3
 labels:
   - includeSelectors: false
     pairs:

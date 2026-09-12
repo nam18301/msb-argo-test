@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: msb-argo-test
+  name: msb-frontend
   labels:
-    app: msb-argo-test
+    app: msb-frontend
 spec:
   selector:
-    app: msb-argo-test
+    app: msb-frontend
   ports:
     - port: 8080
       targetPort: 8080

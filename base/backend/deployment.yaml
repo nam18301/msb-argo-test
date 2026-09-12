@@ -1,24 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: msb-argo-test
+  name: msb-backend
   labels:
-    app: msb-argo-test
+    app: msb-backend
+    tier: backend
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: msb-argo-test
+      app: msb-backend
   template:
     metadata:
       labels:
-        app: msb-argo-test
+        app: msb-backend
     spec:
       containers:
-        - name: msb-argo-test
-          image: nginxinc/nginx-unprivileged:1.25
+        - name: msb-backend
+          image: adminer:4
           ports:
             - containerPort: 8080
+          env:
+            - name: ADMINER_DEFAULT_SERVER
+              value: msb-db
           resources:
             requests:
               cpu: 100m
